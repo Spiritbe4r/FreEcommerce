@@ -1,0 +1,69 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes} from '@angular/router';
+import { MenuComponent } from './menu/menu.component';
+import { AddCategorieComponent } from './categorie/add-categorie/add-categorie.component';
+import { ListCategorieComponent } from './categorie/list-categorie/list-categorie.component';
+import { AddArticleComponent } from './article/add-article/add-article.component';
+import { ListArticleComponent } from './article/list-article/list-article.component';
+import { AddScategorieComponent } from './scategorie/add-scategorie/add-scategorie.component';
+import { ListScategorieComponent } from './scategorie/list-scategorie/list-scategorie.component';
+import { DemoComponent } from './demo/demo.component';
+import { ListUserComponent } from './user/list-user/list-user.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
+import { TemplateComponent } from './template/template.component';
+import { AccueilComponent } from './accueil/accueil.component';
+import { Accueil1Component } from './accueil1/accueil1.component';
+import { AddClientComponent } from './client/add-client/add-client.component';
+import { ListClientComponent } from './client/list-client/list-client.component';
+import { ListFourComponent } from './four/list-four/list-four.component';
+import { AddFourComponent } from './four/add-four/add-four.component';
+import { AddPanierComponent } from './panier/add-panier/add-panier.component';
+import { ListPanierComponent } from './panier/list-panier/list-panier.component';
+import { PayementComponent } from './panier/payement/payement.component';
+import { PaypalComponent } from './paypal/paypal.component';
+import { HomeComponent } from './components/home/home.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MyloginComponent } from './componentes/mylogin/mylogin.component';
+import { AuthGuard } from './services/auth.guard';
+const routes : Routes = [
+    {path: '', component:TemplateComponent,canActivate:[AuthGuard], children : [
+    {path: 'categories', component: ListCategorieComponent},
+    {path: 'categorie', component: AddCategorieComponent},
+    {path: 'scategories', component: ListScategorieComponent},
+    {path: 'scategorie', component: AddScategorieComponent},
+    {path: 'demo', component: DemoComponent},
+    {path: 'accueil', component: AccueilComponent},
+    {path: 'accueil1', component: Accueil1Component},
+    {path: 'client', component: AddClientComponent},
+    {path: 'clients', component: ListClientComponent},
+    {path: 'four', component: AddFourComponent},
+    {path: 'fours', component: ListFourComponent},
+    {path: 'users', component: ListUserComponent},
+    {path: 'articles', component: ListArticleComponent},
+    {path: 'article', component: AddArticleComponent},
+    {path: 'paniers', component: ListPanierComponent},
+    {path: 'paypal', component: PaypalComponent},
+    
+]},
+    {path: 'register', component: RegisterComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'panier', component: AddPanierComponent},
+    
+    {path: 'payement', component: PayementComponent},
+    {path: 'demo', component: DemoComponent},
+
+    {path:'home',component:HomeComponent, pathMatch:'full'},
+
+    {path:'login2',component:MyloginComponent, pathMatch:'full'},
+
+    {path:'dashboard',component:DashboardComponent, pathMatch:'full'},
+
+    
+
+];
+  @NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
+  })
+  export class AppRoutingModule { }

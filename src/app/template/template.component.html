@@ -1,0 +1,191 @@
+
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <div class="nav-profile-img">
+                <img src="assets/images/faces/face1.jpg" alt="image" />
+              </div>
+              <div class="nav-profile-text">
+                <p class="text-black font-weight-semibold m-0"> {{name}} </p>
+                <span class="font-13 online-color">online <i class="mdi mdi-chevron-down"></i></span>
+              </div>
+            </a>
+            <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="#">
+                <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
+              <div class="dropdown-divider"></div>
+              <a type="button" class="dropdown-item" (click)="logoutUser()">
+                <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+            </div>
+          </li>
+          
+          <li class="pt-2 pb-1">
+            <span class="nav-item-head">Administración</span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="mdi mdi-compass-outline menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+              <span class="menu-title">Modulos</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li><a routerLink ="/categories" routerLinkActive="active">
+                  Categorias</a></li>
+                <li><a routerLink ="/scategories" routerLinkActive="active">Sous Catégories</a></li>
+                <li><a routerLink ="/articles" routerLinkActive="active">Articles</a></li>
+                <li><a routerLink ="/clients" routerLinkActive="active">Clients</a></li>
+                <li><a routerLink ="/fours" routerLinkActive="active">Fournisseurs</a></li>
+                <li><a routerLink ="/users" routerLinkActive="active">Users</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/categories" routerLinkActive="active">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Categorias</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/clients" routerLinkActive="active">
+              <i class="mdi mdi-contacts menu-icon"></i>
+              <span class="menu-title">Clientes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/articles" routerLinkActive="active">
+              <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <span class="menu-title">Articulos</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/fours" routerLinkActive="active">
+              <i class="mdi mdi-chart-bar menu-icon"></i>
+              <span class="menu-title">Proveedores</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/users" routerLinkActive="active">
+              <i class="mdi mdi-table-large menu-icon"></i>
+              <span class="menu-title">Users</span>
+            </a>
+          </li>
+          <li class="nav-item pt-3">
+            <a class="nav-link" href="http://bootstrapdash.com/demo/plus-free/documentation/documentation.html" target="_blank">
+              <i class="mdi mdi-file-document-box menu-icon"></i>
+              <span class="menu-title">Security</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_settings-panel.html -->
+        <div id="settings-trigger"><i class="mdi mdi-settings"></i></div>
+        <div id="theme-settings" class="settings-panel">
+          <i class="settings-close mdi mdi-close"></i>
+          <p class="settings-heading">SIDEBAR SKINS</p>
+          <div class="sidebar-bg-options selected" id="sidebar-default-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Default
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
+          <p class="settings-heading mt-2">HEADER SKINS</p>
+          <div class="color-tiles mx-0 px-4">
+            <div class="tiles default primary"></div>
+            <div class="tiles success"></div>
+            <div class="tiles warning"></div>
+            <div class="tiles danger"></div>
+            <div class="tiles info"></div>
+            <div class="tiles dark"></div>
+            <div class="tiles light"></div>
+          </div>
+        </div>
+        <!-- partial -->
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+          <div class="navbar-menu-wrapper d-flex align-items-stretch">
+            <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+              <span class="mdi mdi-chevron-double-left"></span>
+            </button>
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+              <a class="navbar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg" alt="logo" /></a>
+            </div>
+            <ul class="navbar-nav">
+         
+              
+            </ul>
+            <ul class="navbar-nav navbar-nav-right">
+              <li class="nav-item nav-logout d-none d-md-block mr-3">
+                <a class="nav-link" href="#">Status</a>
+              </li>
+              <li class="nav-item nav-logout d-none d-md-block">
+                <button class="btn btn-sm btn-danger">Online</button>
+              </li>
+             
+              <li class="nav-item nav-logout d-none d-lg-block">
+                <a class="nav-link" href="index.html">
+                  <i class="mdi mdi-home-circle"></i>
+                </a>
+              </li>
+            </ul>
+            <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+              <span class="mdi mdi-menu"></span>
+            </button>
+          </div>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper pb-0">
+            <div class="page-header flex-wrap">
+              <div class="header-left">
+                <button class="btn btn-primary mb-2 mb-md-0 mr-2" (click)="generatePdf()"> Lista de Articulos </button>
+                <button class="btn btn-outline-primary bg-white mb-2 mb-md-0"> Importar Documentos </button>
+              </div>
+              <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
+                <div class="d-flex align-items-center">
+                  <a href="#">
+                    <p class="m-0 pr-3">Dashboard</p>
+                  </a>
+                  <a class="pl-3 mr-4" href="#">
+                    <p class="m-0">ADE-00234</p>
+                  </a>
+                </div>
+                <button type="button" class="btn btn-primary mt-2 mt-sm-0 btn-icon-text" (click)="addArticle()">
+                  <i class="mdi mdi-plus-circle"></i> Lista de Productos </button>
+              </div>
+            </div>
+            <!-- first row starts here -->
+            <div class="container">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © </span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">B dashboard</a></span>
+            </div>
+          </footer>
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    
+    <!-- End custom js for this page -->
+ 
