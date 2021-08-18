@@ -9,6 +9,11 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators }
 import { Router } from '@angular/router';
 import { Categorie } from '../../model/categorie';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Supplier } from 'src/app/model/Supplier';
+import { SupplierService } from 'src/app/services/supplier.service';
+import { CategoryService } from 'src/app/services/category.service';
+import { Category } from 'src/app/model/category';
+import {  ProductPayload } from '../product';
 @Component({
   selector: 'app-add-article',
   templateUrl: './add-article.component.html',
@@ -16,6 +21,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   ]
 })
 export class AddArticleComponent implements OnInit {
+  selectedCat: number ;
   num: any;
   code: string;
   CategorieList: Categorie[];
@@ -27,14 +33,38 @@ export class AddArticleComponent implements OnInit {
   public message: string;
   codef : string;
   name : string;
+
+  suppliers: Supplier[] ; // | undefined;
+  suplierSeleccionado:Supplier ;
+
+  categories: Category[] ; // | undefined;
+  categoriaSeleccionada:Category ;
+
+  productPayload: ProductPayload;
+  registerForm: FormGroup;
   constructor(public crudApi: ArticleService, public fb: FormBuilder, public toastr: ToastrService,
     public scategorieService: ScategorieService,
     public categorieService: CategorieService,
     public userService: UserService,
+    public catService: CategoryService,
+    private supplierService : SupplierService,
     private router: Router, @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef: MatDialogRef<AddArticleComponent>,
 
-  ) { }
+  ) { 
+
+    this.productPayload={
+    id:null,
+    name:null,
+    purchase_price:null,
+    price:null,
+    vat:null,
+    category:null,
+    stock:null,
+    supplier:null,
+    description:null,
+    }
+  }
   get f() { return this.crudApi.dataForm.controls; }
   ngOnInit() {
     if (this.crudApi.choixmenu == "A") { this.infoForm() };
@@ -42,25 +72,66 @@ export class AddArticleComponent implements OnInit {
       response => { this.CategorieList = response; }
     );
     
-    this.codef = localStorage.getItem('codef');
-    this.f['codef'].setValue(this.codef);
+
+
+
+    this.cargarSuppliers();
+    this.cargarCategories();
+    
+    
     
   }
 
   infoForm() {
     this.crudApi.dataForm = this.fb.group({
       id: null,
-      code: ['', [Validators.required]],
-      libelle: ['', [Validators.required]],
-      pa: [0, [Validators.required]],
-      pv: [0, [Validators.required]],
-      tva: [0, [Validators.required]],
-      stock: [0, [Validators.required]],
-      ccateg: ['', [Validators.required]],
-      cscateg: ['', [Validators.required]],
+      
+      name: ['', [Validators.required,Validators.minLength(2),Validators.pattern('[a-zA-Z 0-9]*')]],
+      purchase_price: [0, [Validators.required,Validators.pattern('[0-9.]*')]],
+      price: [0, [Validators.required,Validators.pattern('[0-9.]*'),Validators.maxLength(5)]],
+      vat: [0, [Validators.required]],
+      stock: [0, [Validators.required,Validators.pattern('[0-9]*'),Validators.maxLength(4)]],
+      category: ['', [Validators.required]],
+      supplier: ['', [Validators.required]],
+      description: ['', [Validators.required,Validators.pattern('[a-zA-Z ]*')]],
       codef : [''],
     });
   }
+
+  cargarSuppliers()
+  {
+    
+      this.supplierService.getSupplierList().subscribe(
+        data=>{
+          console.log(data);
+          this.suppliers=data;
+        },
+        error=>{
+          console.log(error);
+          this.message="Nose se pudo obtener los proveedores disponibles"
+        }
+      )
+
+    };
+
+    cargarCategories()
+  {
+    
+      this.catService.getCategoryList().subscribe(
+        (data:any)=>{
+          console.log(data.id);
+          this.categories=data;
+          this.f['category'].setValue(data.id);
+        },
+        error=>{
+          console.log(error);
+          this.message="Nose se pudo obtener los categorias disponibles"
+        }
+      )
+
+    };
+
+  
 
   ResetForm() {
     this.crudApi.dataForm.reset();
@@ -74,27 +145,45 @@ export class AddArticleComponent implements OnInit {
     }
   }
 
-  onSelectCateg(code: string) {
-    this.scategorieService.listScateg(code).subscribe(
-      response => { this.ScategorieList = response; }
-    );
-  }
+  
+  onCategorySelected (event: any) {
 
-  onSelectScateg(code: string) {
+    this.catService.getCategoryList().subscribe(
+      (data:any)=>{
+        console.log(data.id);
+        this.categories=data;
+       
+      },
+      error=>{
+        console.log(error);
+        this.message="Nose se pudo obtener los categorias disponibles"
+      }
+    )
+    //update the ui
+    this.selectedCat = event.target.value;
+    //this.f['category'].setValue(this.selectedCat);
+    //console.log(this.selectedCat)
     
-      this.crudApi.getNumero(code).subscribe(
-        response => {
-        this.num = response;
-          if (this.num > 0) {
-            this.code = (1000000000 + this.num + 1).toString().substring(1);
-          }
-          else {
-            this.code = (code + '0001');
-          }
-          this.f['code'].setValue(this.code);
-        }
-      );
 
+  
+  }
+  getData() {
+    
+    this.crudApi.getAll().subscribe(
+      response => {
+        
+        this.crudApi.list = response;
+      }
+    );
+
+  }
+  
+  
+
+    onSelectCateg(code: string) {
+      this.scategorieService.listScateg(code).subscribe(
+        response => { this.ScategorieList = response; }
+      );
     }
   
 
@@ -102,27 +191,46 @@ export class AddArticleComponent implements OnInit {
  
     const formData = new FormData();
     
-    const article = this.crudApi.dataForm.value;
-    formData.append('article', JSON.stringify(article));
-    formData.append('file', this.userFile);
+    //const article = this.crudApi.dataForm.value;
+    //formData.append('article', JSON.stringify(article));
+   // formData.append('file', this.userFile);
+   /*
+    this.productPayload.name=this.crudApi.dataForm.get('name')?.value;
+    this.productPayload.category=this.registerForm.get('category')?.value;
+    this.productPayload.name=this.registerForm.get('name')?.value;
+    this.productPayload.purchase_price=this.registerForm.get('purchase_price')?.value;
+    this.productPayload.stock=this.registerForm.get('stock')?.value;
+    this.productPayload.price=this.registerForm.get('price')?.value;
+    this.productPayload.supplier=this.registerForm.get('supplier')?.value;
+    this.productPayload.description=this.registerForm.get('description')?.value;*/
+    
+
+    formData.append('img', this.userFile);
+    formData.append('category',this.crudApi.dataForm.get('category')?.value)
+    formData.append('name',this.crudApi.dataForm.get('description')?.value)
+    formData.append('purchase_price',this.crudApi.dataForm.value.purchase_price)
+    formData.append('stock',this.crudApi.dataForm.value.stock)
+    formData.append('vat',this.crudApi.dataForm.value.vat)
+    formData.append('price',this.crudApi.dataForm.value.price)
+    formData.append('supplier',this.crudApi.dataForm.get('supplier')?.value)
+    formData.append('description',this.crudApi.dataForm.get('description')?.value)
+
     this.crudApi.createData(formData).subscribe(data => {
+      this.toastr.success( 'Articulo Registrado Correctamente ! ');
       this.dialogRef.close();
-      if (this.userService.four)
-    {
-      this.crudApi.getListArtf(parseInt(this.codef)).subscribe(
-        response =>{this.crudApi.list = response;}
-       );
-    }
-    else
-    {
+      
       this.crudApi.getAll().subscribe(
         response =>{this.crudApi.list = response;}
        );
-    }
+    
      
       this.router.navigate(['/articles']);
+    },error =>{
+      console.log(error)
+      this.toastr.warning( 'Lo sentimos Ocurrio un error Inesperado, Intenta Denuevo');
     });
   }
+  /*
   updateData() {
     this.crudApi.updatedata(this.crudApi.dataForm.value.id, this.crudApi.dataForm.value).
       subscribe(data => {
@@ -132,6 +240,35 @@ export class AddArticleComponent implements OnInit {
          );
         this.router.navigate(['/articles']);
       });
+  }*/
+
+  updateData(){
+    const formData = new FormData();
+      
+      //const users = this.crudApi.formData.value;
+      formData.append('img', this.userFile);
+    formData.append('category',this.crudApi.dataForm.get('category')?.value)
+    formData.append('name',this.crudApi.dataForm.get('description')?.value)
+    formData.append('purchase_price',this.crudApi.dataForm.value.purchase_price)
+    formData.append('stock',this.crudApi.dataForm.value.stock)
+    formData.append('vat',this.crudApi.dataForm.value.vat)
+    formData.append('price',this.crudApi.dataForm.value.price)
+    formData.append('supplier',this.crudApi.dataForm.get('supplier')?.value)
+    formData.append('description',this.crudApi.dataForm.get('description')?.value)
+  
+    this.crudApi.updatedata(this.crudApi.dataForm.value.id,formData).
+    subscribe( data => {
+      console.log(data);
+      this.toastr.success( 'Modificacion  Exitosa');
+      this.dialogRef.close();
+      this.getData();
+      //window.location.href="/users"
+
+      //this.router.navigate(['/users']);
+    },error =>{
+      console.log(error)
+      this.toastr.warning( 'Lo sentimos Ocurrio un error Inesperado, Intenta Denuevo');
+    });
   }
 
   onSelectFile(event) {

@@ -1,16 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User} from '../model/user';
 import { DatePipe } from '@angular/common';
 
 import { FormBuilder, FormGroup, FormControl,ReactiveFormsModule,Validators}
 from '@angular/forms';
+const headers= new HttpHeaders()
+  .set('content-type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW')
+
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class UserService {
-  private baseUrl = 'http://localhost:8080/api/users';
+
+ 
+
+  private baseUrl = 'http://localhost:8000/user/';
+  private djUrl='http://localhost:8000/api/auth/register/'
+  private djUPurl='http://localhost:8000/api/auth/update';
   list:  any=[];
   islogin = false;
   admin = false;
@@ -41,17 +51,18 @@ export class UserService {
  
   createData(info: Object): Observable<Object> {
   
-    return this.http.post(`${this.baseUrl}`, info);
+    return this.http.post(`${this.djUrl}`, info);
   }
   
-  updatedata(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  updatedata(id: number, info: Object): Observable<Object> {
+    return this.http.patch(`${this.djUPurl}/${id}/`, info);
   }
- 
+  
+  
   
   deleteData(id: number): Observable<any> {
    
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}${id}/`, { responseType: 'text' });
   }
 
   getAll(): Observable<any> {
@@ -67,3 +78,9 @@ export class UserService {
   }
   
   }
+
+
+  /*headers: {
+          'content-type': 'multipart/form-data',
+          'X-CSRFTOKEN': CSRF_TOKEN
+        }*/

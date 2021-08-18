@@ -15,10 +15,11 @@ import { MatDialogRef } from "@angular/material/dialog";
   styles: []
 })
 export class AddFourComponent implements OnInit {
+  submited:boolean;
   parametre : any={};
   listUser: any = [];
   valid: boolean = false;
-  get f() { return this.crudApi.dataForm.controls }
+  get fc() { return this.crudApi.dataForm.controls }
   constructor(public crudApi: FournisseurService ,public fb: FormBuilder,public toastr: ToastrService,
     private router : Router,private paraService : ParametreService,
     @Inject(MAT_DIALOG_DATA)  public data,
@@ -32,7 +33,7 @@ export class AddFourComponent implements OnInit {
     this.paraService.getData(1).subscribe(
       response =>{
         this.parametre = response;
-        this.f['code'].setValue(this.parametre.numf);
+        this.fc['code'].setValue(this.parametre.numf);
         }
      );  
       }
@@ -40,24 +41,35 @@ export class AddFourComponent implements OnInit {
   infoForm() {
     this.crudApi.dataForm = this.fb.group({
         id: null,
-        code: ['', [Validators.required]],
-        libelle: ['', [Validators.required]],
-        adresse: ['', [Validators.required, Validators.minLength(5)]],
+        //code: ['', [Validators.required]],
+        company_name: ['', [Validators.required]],
+        responsable: ['', [Validators.required]],
+        address: ['', [Validators.required, Validators.minLength(5)]],
         tel: ['', [Validators.required, Validators.minLength(8)]],
-        email: ['', [Validators.required, Validators.minLength(10)]],
-        fax: ['', [Validators.required, Validators.minLength(8)]],
-        pwd: ['', [Validators.required, Validators.minLength(8)]],
+        email: ['', [Validators.required, Validators.minLength(9)]],
+        //fax: ['', [Validators.required, Validators.minLength(8)]],
+        ruc: ['', [Validators.required, Validators.minLength(13),Validators.maxLength(13)]],
        
     
         });
     }
    
+    getData() {
+      this.crudApi.getAll().subscribe(
+        response =>{this.crudApi.list = response;}
+       );
+     
+    }
   
 
   ResetForm() {
       this.crudApi.dataForm.reset();
   }
   onSubmit() {
+    this.submited=true;
+    if(this.crudApi.dataForm.invalid){
+      return;
+    }
     if (this.crudApi.choixmenu == "A")
     {
       this.addData();
@@ -77,28 +89,31 @@ addData() {
   subscribe( data => {
    
     this.dialogRef.close();
+    this.getData()
    
     
   });
-  this.crudApi.getAll().subscribe(
-    response =>{this.crudApi.list = response;}
-   );
+  
+   this.toastr.success( 'Validation Faite avec Success'); 
   this.router.navigate(['/fours']);
-  this.toastr.success( 'Validation Faite avec Success'); 
+  
 }
   updateData()
   {
  
-    this.crudApi.updatedata(this.crudApi.dataForm.value.code,this.crudApi.dataForm.value).
+    this.crudApi.updatedata(this.crudApi.dataForm.value.id,this.crudApi.dataForm.value).
     subscribe( data => {
+      this.toastr.success( 'Modificacion Exitosa');
       this.dialogRef.close();
+      this.getData()
    });
     this.crudApi.getAll().subscribe(
       response =>{this.crudApi.list = response;}
      );
-    this.router.navigate(['/fours']);
-    this.toastr.success( 'Modification Faite avec Success');
+    //this.router.navigate(['/fours']);
+    
   }
+  /*
 
   verif() {
     this.userService.verifEmail(this.crudApi.dataForm.value.email).subscribe(
@@ -113,8 +128,8 @@ addData() {
         }
 
       }  
-   );
+   );*/
 
 }    
 
-}
+

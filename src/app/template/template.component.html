@@ -5,10 +5,10 @@
         <ul class="nav">
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-              <div class="nav-profile-img">
-                <img src="assets/images/faces/face1.jpg" alt="image" />
+              <div id="nav-profile-img">
+                <img class="" src="{{img}}" alt="image" />
               </div>
-              <div class="nav-profile-text">
+              <div class="nav-profile-text text-center">
                 <p class="text-black font-weight-semibold m-0"> {{name}} </p>
                 <span class="font-13 online-color">online <i class="mdi mdi-chevron-down"></i></span>
               </div>
@@ -21,12 +21,12 @@
                 <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
             </div>
           </li>
-          
+          <div class="text-center ">
           <li class="pt-2 pb-1">
-            <span class="nav-item-head">Administración</span>
+            <span class="nav-item-head menu-title"><strong><h4 class="text-primary capi">Administración</h4></strong></span>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/">
               <i class="mdi mdi-compass-outline menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -34,31 +34,20 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-crosshairs-gps menu-icon"></i>
-              <span class="menu-title">Modulos</span>
+              <span class="menu-title"><span class="text-primary"><h4>Modulos</h4></span></span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li><a routerLink ="/categories" routerLinkActive="active">
-                  Categorias</a></li>
-                <li><a routerLink ="/scategories" routerLinkActive="active">Sous Catégories</a></li>
-                <li><a routerLink ="/articles" routerLinkActive="active">Articles</a></li>
-                <li><a routerLink ="/clients" routerLinkActive="active">Clients</a></li>
-                <li><a routerLink ="/fours" routerLinkActive="active">Fournisseurs</a></li>
-                <li><a routerLink ="/users" routerLinkActive="active">Users</a></li>
+               
+
               </ul>
             </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink ="/categories" routerLinkActive="active">
-              <i class="mdi mdi-contacts menu-icon"></i>
+              <i class="mdi mdi-file-document-box menu-icon"></i>
               <span class="menu-title">Categorias</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink ="/clients" routerLinkActive="active">
-              <i class="mdi mdi-contacts menu-icon"></i>
-              <span class="menu-title">Clientes</span>
             </a>
           </li>
           <li class="nav-item">
@@ -68,6 +57,19 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" routerLink ="/clients" routerLinkActive="active">
+              <i class="mdi mdi-account-settings menu-icon"></i>
+              <span class="menu-title">Clientes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/panier" routerLinkActive="active">
+              <i class="mdi mdi-shopping menu-icon"></i>
+              <span class="menu-title">Carro de Compra</span>
+            </a>
+          </li>
+         
+          <li class="nav-item">
             <a class="nav-link" routerLink ="/fours" routerLinkActive="active">
               <i class="mdi mdi-chart-bar menu-icon"></i>
               <span class="menu-title">Proveedores</span>
@@ -75,16 +77,17 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/users" routerLinkActive="active">
-              <i class="mdi mdi-table-large menu-icon"></i>
-              <span class="menu-title">Users</span>
+              <i class="mdi mdi-account-multiple-outline menu-icon"></i>
+              <span class="menu-title">Usuarios</span>
             </a>
           </li>
-          <li class="nav-item pt-3">
-            <a class="nav-link" href="http://bootstrapdash.com/demo/plus-free/documentation/documentation.html" target="_blank">
-              <i class="mdi mdi-file-document-box menu-icon"></i>
-              <span class="menu-title">Security</span>
+          <li class="nav-item">
+            <a class="nav-link" routerLink ="/secutity" routerLinkActive="active">
+              <i class="mdi mdi-lock menu-icon"></i>
+              <span class="menu-title">Seguridad</span>
             </a>
           </li>
+        </div>
         </ul>
       </nav>
       <!-- partial -->
@@ -130,11 +133,11 @@
                 <a class="nav-link" href="#">Status</a>
               </li>
               <li class="nav-item nav-logout d-none d-md-block">
-                <button class="btn btn-sm btn-danger">Online</button>
+                <button class="btn btn-sm btn-danger" (click)="logoutUser()">LOG OUT</button>
               </li>
              
               <li class="nav-item nav-logout d-none d-lg-block">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="/">
                   <i class="mdi mdi-home-circle"></i>
                 </a>
               </li>
@@ -154,10 +157,10 @@
               </div>
               <div class="header-right d-flex flex-wrap mt-2 mt-sm-0">
                 <div class="d-flex align-items-center">
-                  <a href="#">
+                  <a href="/">
                     <p class="m-0 pr-3">Dashboard</p>
                   </a>
-                  <a class="pl-3 mr-4" href="#">
+                  <a class="pl-3 mr-4" href="/">
                     <p class="m-0">ADE-00234</p>
                   </a>
                 </div>
@@ -175,7 +178,7 @@
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
               <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © </span>
-              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="https://www.bootstrapdash.com/" target="_blank">B dashboard</a></span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"> Free <a href="/" target="_blank">B dashboard</a></span>
             </div>
           </footer>
           <!-- partial -->

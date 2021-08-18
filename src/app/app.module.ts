@@ -56,6 +56,9 @@ import { AuthGuard } from './services/auth.guard';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { LoginService } from './services/login.service';
 import { NgxWebstorageModule } from 'ngx-webstorage';
+import { MatConfirmComponent } from './componentes/mat-confirm/mat-confirm.component';
+import { AddUserComponent } from './user/add-user/add-user.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
 
 const MATERIAL_MODULES = [MatToolbarModule,
   MatIconModule
@@ -94,6 +97,9 @@ const MATERIAL_MODULES = [MatToolbarModule,
     DashboardComponent,
     SidenavComponent,
     MyloginComponent,
+    MatConfirmComponent,
+    AddUserComponent,
+    CreateUserComponent
     
    
     
@@ -130,6 +136,7 @@ const MATERIAL_MODULES = [MatToolbarModule,
   bootstrap: [AppComponent],
   schemas:[
     CUSTOM_ELEMENTS_SCHEMA
-  ]
+  ],
+  entryComponents:[MatConfirmComponent]
 })
 export class AppModule { }

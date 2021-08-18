@@ -14,7 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PanierService {
   public formData:  FormGroup;
-  private baseUrl = '/api/paniers';
+  private baseUrl = 'http://localhost:8000/basket/';
   list :  any=[];
   tottht : number = 0;
   tottva : number = 0;

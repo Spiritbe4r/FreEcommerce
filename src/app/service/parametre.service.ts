@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
     providedIn: 'root'
   })
   export class ParametreService {
-    private baseUrl = '/api/parametres';
+    private baseUrl = 'http://localhost:8080/api/parametres';
     choixmenu : string  = 'A';
     list : Parametre[];
     public dataForm:  FormGroup; 

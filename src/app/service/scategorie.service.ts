@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators }
   providedIn: 'root'
 })
 export class ScategorieService {
-  private baseUrl = '/api/scategories';
+  private baseUrl = 'http://localhost:8080/api/scategories';
   choixmenu: string = 'A';
   list:  any=[];
   public formData: FormGroup;

@@ -18,7 +18,7 @@ import { MatDialogRef } from "@angular/material/dialog";
 export class AddClientComponent implements OnInit {
   parametre: any = {};
   listUser: any = [];
-  valid: boolean = false;
+  //valid: boolean = false;
   get f() { return this.crudApi.dataForm.controls }
   constructor(public crudApi: ClientService, public fb: FormBuilder, public toastr: ToastrService,
     private router: Router, private paraService: ParametreService,
@@ -30,39 +30,37 @@ export class AddClientComponent implements OnInit {
 
     if (this.crudApi.choixmenu == "A") {
       this.infoForm()
+      /*
       this.paraService.getData(1).subscribe(
         response => {
           this.parametre = response;
           this.f['code'].setValue(this.parametre.numc);
 
         }
-      );
+      );*/
     }
   }
   infoForm() {
     this.crudApi.dataForm = this.fb.group({
       id: null,
-      code: ['', [Validators.required]],
-      libelle: ['', [Validators.required]],
-      adresse: ['', [Validators.required, Validators.minLength(5)]],
+      first_name: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
+      address: ['', [Validators.required, Validators.minLength(5)]],
       tel: ['', [Validators.required, Validators.minLength(8)]],
       email: [' ', [Validators.required, Validators.minLength(10)]],
       fax: ['', [Validators.required, Validators.minLength(8)]],
-
-      pwd: ['', [Validators.required, Validators.minLength(8)]],
 
 
     });
   }
 
 
-
   ResetForm() {
     this.crudApi.dataForm.reset();
   }
   onSubmit() {
-    if (this.valid)
-    {
+    
+    
       if (this.crudApi.choixmenu == "A") {
         this.addData();
       }
@@ -70,11 +68,8 @@ export class AddClientComponent implements OnInit {
   
         this.updateData()
       }
-    }
-    else
-    {
-      this.toastr.success('Validation Impossible Vérifier Votre Email.....');
-    }
+    
+    
 
    
 
@@ -85,7 +80,7 @@ export class AddClientComponent implements OnInit {
   addData() {
     this.crudApi.createData(this.crudApi.dataForm.value).
       subscribe(data => {
-        this.toastr.success('Validation Faite avec Success');
+        this.toastr.success('Cliente creado Correctamente');
         this.dialogRef.close();
 
         this.crudApi.getAll().subscribe(
@@ -97,9 +92,9 @@ export class AddClientComponent implements OnInit {
   }
   updateData() {
 
-    this.crudApi.updatedata(this.crudApi.dataForm.value.code, this.crudApi.dataForm.value).
+    this.crudApi.updatedata(this.crudApi.dataForm.value.id, this.crudApi.dataForm.value).
       subscribe(data => {
-        this.toastr.success('Modification Faite avec Success');
+        this.toastr.success('Modificación Realizada Exitosamente');
         this.dialogRef.close();
 
         this.crudApi.getAll().subscribe(
@@ -109,7 +104,9 @@ export class AddClientComponent implements OnInit {
       });
   }
 
-  verif() {
+     
+}
+/*verif() {
     this.userService.verifEmail(this.crudApi.dataForm.value.email).subscribe(
       response => {
         this.listUser = response;
@@ -124,5 +121,4 @@ export class AddClientComponent implements OnInit {
       }  
    );
 
-}    
-}
+} */

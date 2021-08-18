@@ -13,8 +13,10 @@
       <thead>
       <tr>
       <th scope="col">id</th>
-      <th scope="col">libelle</th>
-      <th scope="col">adresse</th>
+      <th scope="col">Nombre Proveedor</th>
+      <th scope="col">Responsable</th>
+      <th scope="col">RUC</th>
+      <th scope="col">Dirección</th>
       <th class="text-center" scope="col">Action</th>
       <th>
        <a class="btn btn-outline-success" (click)="addFour()"><i class="fa fa-plus-square"></i> Create New</a>
@@ -23,12 +25,14 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of crudApi.list | paginate: { itemsPerPage: 3, currentPage: p } ">
-      <th>{{item.code}}</th>
-      <td>{{item.libelle}}</td>
-      <td>{{item.adresse}}</td>
+      <th>{{item.id}}</th>
+      <td>{{item.company_name}}</td>
+      <td>{{item.responsable}}</td>
+      <td>{{item.ruc}}</td>
+      <td>{{item.address}}</td>
       <td><button class="btn btn-warning" style="margin-left: 20px;" (click) = "selectData(item)">
         <i class="fa fa-pencil-square-o" ></i></button></td>
-     <td><button class="btn btn-danger" (click) = "removeData(item.code)">
+     <td><button class="btn btn-danger" (click) = "removeData(item.id)">
         <i class="fa fa-trash-o"></i></button></td>
          </tr>
            </tbody>

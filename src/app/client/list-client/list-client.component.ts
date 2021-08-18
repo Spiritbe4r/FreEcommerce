@@ -32,7 +32,10 @@ export class ListClientComponent implements OnInit {
   
   getData() {
     this.crudApi.getAll().subscribe(
-      response =>{this.crudApi.list = response;}
+      response =>{this.crudApi.list = response;
+        console.log(response)
+      }
+      
      );
    
   }

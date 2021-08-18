@@ -55,6 +55,7 @@ export class AddScategorieComponent implements OnInit {
         rang: [1],
       });
     }
+    
 
 
 

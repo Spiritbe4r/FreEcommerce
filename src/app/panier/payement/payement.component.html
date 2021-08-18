@@ -16,12 +16,12 @@
                     <form class="checkout-form" [formGroup]="this.service.formData">
                         <div class="row address-inputs">
                             <div class="col-md-12">
-                                <input type="text" class="form-control" formControlName="nom"
+                                <input type="text" class="form-control" formControlName="name"
                                     placeholder=" Nom & Prénom ...">
-                                <input type="text" class="form-control" formControlName="adresse"
+                                <input type="text" class="form-control" formControlName="address"
                                     placeholder=" Adresse de Livraison ...">
-                                <input type="text" class="form-control" formControlName="sadresse"
-                                    placeholder=" Suite Adresse ....">
+                                <!--<input type="text" class="form-control" formControlName="s"
+                                    placeholder=" Suite Adresse ....">-->
                             </div>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" formControlName="ville"
@@ -85,10 +85,10 @@
                                     <tr *ngFor="let item of service.list ;let i=index;">
                                         <td class="product-col">
                                             <img class="card-img-top img-responsive"
-                                                src="{{this.articleService.host+'/api/Imgarticles/'+item.id}}"
+                                                src="{{item.img}}"
                                                 style="width :80px; height :100px;width:fil-content" alt="">
                                             <div class="pc-title">
-                                                <h4>{{item.libelle}}</h4>
+                                                <h4>{{item.name}}</h4>
                                             </div>
                                         </td>
                                         <td class="quy-col">

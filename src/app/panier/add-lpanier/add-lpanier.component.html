@@ -2,7 +2,7 @@
     <nav class="main-navbar">
         <div class="container">
             <ul class="main-menu">
-                <li><a href="#">Your Cart</a></li>
+                <li><a href="#">Your Cart GAAAAA</a></li>
 
             </ul>
         </div>
@@ -31,10 +31,10 @@
                                     <tr *ngFor="let item of service.list ;let i=index;">
                                         <td class="product-col">
                                             <img class="card-img-top img-responsive"
-                                                src="{{this.articleService.host+'/api/Imgarticles/'+item.id}}"
+                                                src="{{item.img}}"
                                                 style="width :80px; height :100px;width:fil-content" alt="">
                                             <div class="pc-title">
-                                                <h4>{{item.libelle}}</h4>
+                                                <h4>{{item.name}}</h4>
                                                
                                             </div>
                                         </td>
@@ -47,7 +47,7 @@
                                             </div>
                                         </td>
                                         <td class="total-col">
-                                            <h4>{{item.pv}}</h4>
+                                            <h4>{{item.price}}</h4>
                                         </td>
                                         <td class="total-col">
                                             <h4>{{item.qte*item.pv}}</h4>

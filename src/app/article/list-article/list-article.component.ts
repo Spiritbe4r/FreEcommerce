@@ -10,6 +10,10 @@ import { UserService } from '../../service/user.service';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, Validators }
   from '@angular/forms';
 import { AddArticleComponent } from '../../article/add-article/add-article.component';
+import { Supplier } from 'src/app/model/Supplier';
+import { Category } from 'src/app/model/category';
+import { CategoryService } from 'src/app/services/category.service';
+import { SupplierService } from 'src/app/services/supplier.service';
 @Component({
   selector: 'app-list-article',
   templateUrl: './list-article.component.html',
@@ -19,17 +23,29 @@ import { AddArticleComponent } from '../../article/add-article/add-article.compo
 export class ListArticleComponent implements OnInit {
   article: Article;
   p: number = 1;
+  message:string;
 
   codef: number = 0;
+
+  suppliers: Supplier[] ; // | undefined;
+  suplierSeleccionado:Supplier ;
+
+  categories: Category[] ; // | undefined;
+  categoriaSeleccionada:Category ;
+  
   control: FormControl = new FormControl('');
   constructor(public crudApi: ArticleService, public toastr: ToastrService,
     private router: Router, public fb: FormBuilder,
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public userService: UserService,
+    
+    public catService: CategoryService,
+    private supplierService : SupplierService,
     public dialogRef: MatDialogRef<AddArticleComponent>,) { }
 
   ngOnInit() {
+    /*
 
     if (this.userService.four) {
       this.codef = parseInt(localStorage.getItem('codef'));
@@ -39,7 +55,10 @@ export class ListArticleComponent implements OnInit {
     else {
       this.getData();
 
-    }
+    }*/
+    this.getData();
+    this.cargarSuppliers();
+    this.cargarCategories();
 
 
   }
@@ -66,6 +85,7 @@ export class ListArticleComponent implements OnInit {
     );
 
   }
+  /*
 
   getlistArtf(code: number) {
 
@@ -73,7 +93,7 @@ export class ListArticleComponent implements OnInit {
       response => { this.crudApi.list = response; }
     );
 
-  }
+  }*/
   exporToExcel() {
     this.crudApi.getExcelData().subscribe((responseMessage) => {
       let file = new Blob([responseMessage], { type: 'application/vnd.ms-excel' });
@@ -92,7 +112,7 @@ export class ListArticleComponent implements OnInit {
             this.toastr.warning(' data successfully deleted!');
             if (this.userService.four) {
 
-              this.getlistArtf(this.codef);
+              //this.getlistArtf(this.codef);
             }
             else {
               this.getData();
@@ -112,4 +132,36 @@ export class ListArticleComponent implements OnInit {
 
     this.matDialog.open(AddArticleComponent, dialogConfig);
   }
+
+  cargarSuppliers()
+  {
+    
+      this.supplierService.getSupplierList().subscribe(
+        data=>{
+          console.log(data);
+          this.suppliers=data;
+        },
+        error=>{
+          console.log(error);
+          this.message="Nose se pudo obtener los proveedores disponibles"
+        }
+      )
+
+    };
+
+    cargarCategories()
+  {
+    
+      this.catService.getCategoryList().subscribe(
+        data=>{
+          console.log(data);
+          this.categories=data;
+        },
+        error=>{
+          console.log(error);
+          this.message="Nose se pudo obtener los categorias disponibles"
+        }
+      )
+
+    };
 }

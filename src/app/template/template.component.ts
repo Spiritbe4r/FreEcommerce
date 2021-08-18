@@ -11,16 +11,18 @@ import {LocalStorageService} from 'ngx-webstorage';
   selector: 'app-template',
   templateUrl: './template.component.html',
   
-  styles: [
+  styleUrls: ['./template.component.css'
   ]
 })
 export class TemplateComponent implements OnInit {
 name : string;
+img:string;
   constructor(private userService : UserService,private router : Router,private loginService:LoginService,
     public artService: ArticleService,private localStorageService:LocalStorageService) { }
 
   ngOnInit(): void {
    this.name =  this.localStorageService.retrieve('username');
+   this.img =  this.localStorageService.retrieve('img');
     this.artService.getAll().subscribe(
       response =>{this.artService.list = response;}
      );

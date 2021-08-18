@@ -7,6 +7,8 @@ import {MatDialog, MatDialogConfig, MAT_DIALOG_DATA,MatDialogRef } from '@angula
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule,Validators }
 from '@angular/forms';
 import { RegisterComponent } from '../../user/register/register.component';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-list-user',
@@ -22,7 +24,7 @@ export class ListUserComponent implements OnInit {
     private router : Router,public fb: FormBuilder,
     private matDialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef:MatDialogRef<RegisterComponent>,) { }
+    public dialogRef:MatDialogRef<CreateUserComponent>,) { }
  
   ngOnInit() {
     
@@ -34,9 +36,9 @@ export class ListUserComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
     dialogConfig.disableClose = true;
-    dialogConfig.width="70%";
+    dialogConfig.width="50%";
     //dialogConfig.data="gdddd";
-    this.matDialog.open(RegisterComponent, dialogConfig);
+    this.matDialog.open(CreateUserComponent, dialogConfig);
   }
  
   
@@ -70,6 +72,6 @@ export class ListUserComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.width="50%";
     
-    this.matDialog.open(RegisterComponent, dialogConfig);
+    this.matDialog.open(AddUserComponent, dialogConfig);
   }
 }

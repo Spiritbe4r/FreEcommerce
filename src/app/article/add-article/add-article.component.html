@@ -3,64 +3,124 @@
 </mat-toolbar>
 <div style="overflow-y: scroll; height:500px;" class="col-md-12 col-md-offset-2">
     Hello : {{name}}
-    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit() ">
         <input type="hidden" formControlName="id" id="id">
         <div class = "row">
-        <div class="form-group col-md-6">
+            <div class="form-group col-md-6">
+                          <label for="categoria">Categoria</label>
+                          <br>
+                          <select class="form-control" type="number" formControlName="category" id="category" name="category" 
+                            [(ngModel)]="categoriaSeleccionada" (change)="onCategorySelected($event)" >
+                        <option value="0">-Select-</option>
+                            <option type="number" value="{{item.id}}" [ngValue]="item.id" *ngFor="let item of categories">{{item.name}}</option>
+                          </select>
+                <div *ngIf="f.category.invalid && (f.category.touched || f.category.dirty)">
+
+                    <span class="error text-danger" *ngIf="f.category.errors?.required">Category Is
+                        Required</span>
+             
+                </div> 
+            </div>
+
+        <div class="form-group col-md-6">
+                      <label for="cine">Proveedor</label>
+                      <br>
+                      <select class="form-control" (change)="onSelectCateg($event.target.value)" type="number" formControlName="supplier" id="supplier" name="supplier" [(ngModel)]="suplierSeleccionado" >
+                    <option value="0">-Select-</option>
+                        <option type="number" value="{{item.id}}"  *ngFor="let item of suppliers">{{item.company_name}}</option>
+                      </select>
+            <div *ngIf="f.supplier.invalid && (f.supplier.touched || f.supplier.dirty)">
+
+                <span class="error text-danger" *ngIf="f.supplier.errors?.required">Proveedor Is
+                    Required</span>
+         
+            </div> 
+                    </div>
+
+            <!-- <div class="form-group col-md-6">
             <label>Code Catégorie </label>
             <select class="form-control" formControlName="ccateg" id="ccateg"
                 (change)="onSelectCateg($event.target.value)">
                 <option value="0">-Select-</option>
                 <option *ngFor="let item of CategorieList" value="{{item.code}}">{{item.libelle}}</option>
             </select>
-        </div>
-        <div class="form-group col-md-6 ">
-            <label>Code SCatégorie </label>
-            <select class="form-control" formControlName="cscateg" id="cscateg"
-                (change)="onSelectScateg($event.target.value)">
-                <option value="0">-Select-</option>
-                <option *ngFor="let item of ScategorieList" value="{{item.code}}">{{item.libelle}}</option>
-            </select>
+        </div>-->
+        
+        <div class="form-group col-md-6">
+            <label>Stock </label>
+            <input type="number" class="form-control" formControlName="stock" id="stock">
+            <div *ngIf="f.stock.invalid && (f.stock.touched || f.stock.dirty)">
+
+                <span class="error text-danger" *ngIf="f.stock.errors?.required">Stock Is
+                    Required</span>
+
+            </div> 
+
+            
         </div>
         <div class="form-group col-md-6">
-            <label>Code Article </label>
-            <input type="text" class="form-control" formControlName="code" id="code" readonly>
+            <label>Nombre </label>
+            <input type="text" class="form-control" formControlName="name" id="name">
+            <div *ngIf="f.name.invalid && (f.name.touched || f.name.dirty)">
+
+                <span class="error text-danger" *ngIf="f.name.errors?.required">Product Name Is
+                    Required</span>
+                    <span class="error text-danger" *ngIf="f.name.errors?.minlength">Product name Min 
+                        Length is 2 </span>
+                        <span class="error text-danger" *ngIf="f.name.errors?.pattern">Nombre del Producto solo requiere letras y numeros </span>
+            </div> 
         </div>
+           
         <div class="form-group col-md-6">
-            <label>Libelle </label>
-            <input type="text" class="form-control" formControlName="libelle" id="libelle">
-        </div>
-        <div class="form-group col-md-6">
-            <label>Prix Achat </label>
-            <input type="text" class="form-control" formControlName="pa" id="pa">
+            <label>Precio Compra </label>
+            <input type="number" step="any" class="form-control" formControlName="purchase_price" id="purchase_price">
+            <div *ngIf="f.purchase_price.invalid && (f.purchase_price.touched || f.purchase_price.dirty)">
+
+                <span class="error text-danger" *ngIf="f.purchase_price.errors?.required">Precio de Compra es Requerido</span>
+                    <span class="error text-danger" *ngIf="f.purchase_price.errors?.pattern">Precio de Compra requiere solo Numeros </span>
+                    
+            </div> 
         </div>
         <div class="form-group  col-md-6">
-            <label>Prix Vente </label>
-            <input type="text" class="form-control" formControlName="pv" id="pv">
+            <label>Precio Venta </label>
+            <input type="number" step="any" class="form-control" formControlName="price" id="price">
+            <div *ngIf="f.price.invalid && (f.price.touched || f.price.dirty)">
+
+                <span class="error text-danger" *ngIf="f.price.errors?.required">Precio de Venta es Requerido</span>
+                    <span class="error text-danger" *ngIf="f.price.errors?.pattern">Precio de Venta requiere solo Numeros </span>
+            </div> 
         </div>
         <div class="form-group col-md-6">
             <label>TVA </label>
-            <select class="form-control" formControlName="tva" id="tva">
+            <select class="form-control" formControlName="vat" id="vat">
                 <option value=0>0</option>
-                <option value=7>7</option>
-                <option value=13>13</option>
-                <option value=19>19</option>
+                <option value=0.7>7</option>
+                <option value=0.13>13</option>
+                <option value=0.19>19</option>
             </select>
         </div>
         <div class="form-group  col-md-6">
-            <label>Stock </label>
-            <input type="text" class="form-control" formControlName="stock" id="stock">
+            <label>Descripcción </label>
+            <textarea type="text" class="form-control" formControlName="description" id="description" cols="5" rows="5">
+
+            </textarea>
+            <div *ngIf="f.description.invalid && (f.description.touched || f.description.dirty)">
+
+                <span class="error text-danger" *ngIf="f.description.errors?.required">Descripción es Requerido</span>
+                    <span class="error text-danger" *ngIf="f.description.errors?.pattern">Descripción requiere solo Letras </span>
+            </div> 
+            
         </div>
     </div>
         <div class="form-group">
-            <label>File Upload </label>
-            <input type="file" accept="image/*" (change)="onSelectFile($event)">
+            <label>Subir Imagen </label>
+            <input type="file" accept="image/*" (change)="onSelectFile($event)" required>
             <img [src]="imgURL" height="200" *ngIf="imgURL">
         </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+            <button type="submit" class="btn btn-dark"><i class="fa fa-database mr-2"></i> Submit</button>
             <a class="btn btn-outline-success" routerLink="/articles"><i class="fa fa-plus-square"></i> Liste</a>
-            <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]></button>
+            <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]>X</button>
 
         </div>
     </form>

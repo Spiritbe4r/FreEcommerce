@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, FormControl,Validators }
 from '@angular/forms';
 import { Router } from '@angular/router';
 import { User} from '../../model/user';
+import { RegisterPayload } from 'src/app/services/register-payload';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -14,12 +15,21 @@ import { User} from '../../model/user';
 export class RegisterComponent implements OnInit {
   submitted = false;
   userFile;
+  registerPayload: RegisterPayload;
   public imagePath;
   imgURL: any;
   pwdd :string;
   acceptTerms : string;
   constructor(public crudApi: UserService ,public fb: FormBuilder,public toastr: ToastrService,
-    private router : Router) { }
+    private router : Router) {
+      this.registerPayload={
+        username:'',
+        email:'',
+        name:'',
+        roles:'',
+        password:'',
+      }
+     }
     
   ngOnInit() {
   
@@ -32,14 +42,17 @@ export class RegisterComponent implements OnInit {
   
   infoForm() {
     this.crudApi.formData = this.fb.group({
-        id: null,
+       // id: null,
         username: ['', [Validators.required, Validators.minLength(5)]],
-        nom: ['', [Validators.required, Validators.minLength(5)]],
-        role: ['', [Validators.required, Validators.minLength(8)]],
-        email: ['', [Validators.required, Validators.minLength(8)]],
+        email: ['', [Validators.required, Validators.minLength(8),Validators.email]],
+        name: ['', [Validators.required, Validators.minLength(5),]],
+        roles: ['', [Validators.required, Validators.minLength(8)]],
+        
         password: ['', [Validators.required, Validators.minLength(8)]],
         });
     }
+
+  
    
   
 
@@ -67,17 +80,22 @@ export class RegisterComponent implements OnInit {
       this.toastr.warning( 'Vérifiet votre de passe ...');  
     }*/
 }
-  
-   
+
 
 addData() {
   const formData = new FormData();
     
-    const users = this.crudApi.formData.value;
-    formData.append('user', JSON.stringify(users));
-    formData.append('file', this.userFile);
+    //const users = this.crudApi.formData.value;
+    formData.append('img', this.userFile);
+    formData.append('username',this.crudApi.formData.value.username)
+    formData.append('email',this.crudApi.formData.value.email)
+    formData.append('name',this.crudApi.formData.value.name)
+    formData.append('roles',this.crudApi.formData.value.roles)
+    formData.append('password',this.crudApi.formData.get('password')?.value)
+   // formData.append('user', JSON.stringify(users));
+    
     this.crudApi.createData(formData).subscribe( data => {
-    this.toastr.success( 'Validation Faite avec Success'); 
+    this.toastr.success( 'Validation  Success'); 
     this.router.navigate(['/login2']);
   });
 }
@@ -87,7 +105,7 @@ addData() {
   
     this.crudApi.updatedata(this.crudApi.formData.value.id,this.crudApi.formData.value).
     subscribe( data => {
-      this.toastr.success( 'Modification Faite avec Success');
+      this.toastr.success( 'Modification  Success');
 
       this.router.navigate(['/users']);
     });

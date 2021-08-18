@@ -40,10 +40,21 @@ code : string;
   infoForm() {
     this.crudApi.formData = this.fb.group({
       id: null,
+      slug: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+    });
+    
+  }
+/*
+  infoForm() {
+    this.crudApi.formData = this.fb.group({
+      id: null,
       code: ['', [Validators.required]],
       libelle: ['', [Validators.required]],
     });
-  }
+  }*/
+ 
   ResetForm() {
     this.crudApi.formData.reset();
   }
@@ -77,7 +88,7 @@ lister()
       });
   }
   updateData() {
-    this.crudApi.updatedata(this.crudApi.formData.value.code, this.crudApi.formData.value).
+    this.crudApi.updatedata(this.crudApi.formData.value.id, this.crudApi.formData.value).
       subscribe(data => {
         this.dialogRef.close();
         this.crudApi.getAll().subscribe(

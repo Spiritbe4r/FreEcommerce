@@ -15,56 +15,82 @@
                         </div>
                         <div class="auth-box card">
                             <div class="card-block">
-                                <div class="row m-b-20">
+                                <div class="row m-b-10">
                                     <div class="col-md-12">
                                         <h3 class="text-center txt-primary">Sign up</h3>
                                     </div>
                                 </div>
                                 <div class="form-group form-primary">
                                   <input type="text" class="form-control form-control-user" formControlName="username" id="username"
-                                    placeholder="User Name">
+                                    placeholder="User Name" >
+                                    <div *ngIf="f.username.invalid && (f.username.touched || f.username.dirty)">
+
+                                        <span class="error text-danger" *ngIf="f.username.errors?.required">Username Is
+                                            Required</span>
+                                            <span class="error text-danger" *ngIf="f.username.errors?.minlength">Username Min 
+                                                Length is 5 </span>
+                                    </div>
+                                    
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Choose Username</label>
+                                    <label class="float-label  m-4">Choose Username</label>
                                 </div>
-                                <div class="form-group form-primary">
-                                  <input type="text" class="form-control form-control-user" formControlName="nom" id="nom"
-                                    placeholder="First Name">
-                                    <span class="form-bar"></span>
-                                    <label class="float-label">Choose First Name</label>
-                                </div>
+                               
 
                                 <div class="form-group form-primary">
                                   <input type="text" class="form-control form-control-user" id="email" formControlName="email"
-                                  placeholder="Votre Email">     
+                                  placeholder="Votre Email" required> 
+                                  <div *ngIf="f.email.invalid && (f.email.touched || f.email.dirty)">
+
+                                    <span class="error text-danger" *ngIf="f.email.errors?.required">Email Is
+                                        Required</span>
+                                        <span class="error text-danger" *ngIf="f.email.errors?.minlength">Email Min 
+                                            Length is 8 </span>
+                                            <span class="error text-danger" *ngIf="f.email.errors?.email">Please
+                                                Enter a Correct Email </span>
+                                </div>    
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Your Email Address</label>
+                                    <label class="float-label mt-2 m-4">Your Email Address</label>
                                 </div>
                                 <div class="form-group form-primary">
-                                  <select formControlName="role" class="form-control">
+                                    <input type="text" class="form-control form-control-user" formControlName="name" id="name"
+                                      placeholder="First Name">
+                                      <div *ngIf="f.name.invalid && (f.name.touched || f.name.dirty)">
+  
+                                          <span class="error text-danger" *ngIf="f.name.errors?.required">First Name Is
+                                              Required</span>
+                                              <span class="error text-danger" *ngIf="f.name.errors?.minlength">First Name Min 
+                                                  Length is 5 </span>
+                                      </div>
+                                      <span class="form-bar"></span>
+                                      <label class="float-label mt-2 m-4">Choose First Name</label>
+                                  </div>
+                                <div class="form-group form-primary">
+                                  <select formControlName="roles" class="form-control">
                                     <option value="0">Select Role</option>
-                                    <option value="ADMIN">Administrateur</option>
-                                    <option value="userName">User</option>
+                                    <option value="ADMIN">Admin</option>
+                                    <option value="USER">User</option>
                 
                                   </select>    
                                     <span class="form-bar"></span>
-                                    <label class="float-label">Your Role</label>
+                                    <label class="float-label mt-2 m-4">Your Role</label>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-primary">
-                                          <input type="text" class="form-control" id="password" formControlName="password"
-                                          placeholder="Pass word">
+                                          <input type="password" class="form-control" [formControlName]="'password'" id="password" placeholder="Password">
+                                          <div *ngIf="f.password.invalid && (f.password.touched || f.password.dirty)">
+
+                                            <span class="error text-danger" *ngIf="f.password.errors?.required">Password Is
+                                                Required</span>
+                                                <span class="error text-danger" *ngIf="f.password.errors?.minlength">Password Min 
+                                                    Length is 8 </span>
+                                        </div>    
+                                          
                                             <span class="form-bar"></span>
-                                            <label class="float-label">Password</label>
+                                            <label class="float-label mt-2 m-4">Password</label>
                                         </div>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-primary">
-                                          <input type="password" formControlName="pwdd" class="form-control">
-                                            <span class="form-bar"></span>
-                                            <label class="float-label">Confirm Password</label>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div class="row m-t-25 text-left">
                                     <div class="col-md-12">
@@ -72,33 +98,33 @@
                                             <label>
                                                
                   <span class="pull-left"> <input type="checkbox" formControlName="acceptTerms" id="acceptTerms"
-                    class="form-check-input" /></span>
+                    class="form-check-input ml-2 " /></span>
                
-                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                <span class="text-inverse">I read and accept <a href="#">Terms &amp; Conditions.</a></span>
+                                                <span class="cr ml-4"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                <span class="text-inverse ml-2">I read and accept <a href="#">Terms &amp; Conditions.</a></span>
                                             </label>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <div class="checkbox-fade fade-in-primary">
+                                        <div class="checkbox-fade fade-in-primary ml-2 ">
                                             <label>
                                                 <input type="checkbox" value="">
-                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                <span class="text-inverse">Send me the <a href="#!">Newsletter</a> weekly.</span>
+                                                <span class="cr ml-2"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                                <span class="text-inverse ml-2">Send me the <a href="#!">Newsletter</a> weekly.</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>File Upload </label>
-                                    <input type="file" accept="image/*" (change)="onSelectFile($event)">
-                                    <img [src]="imgURL" height="200" *ngIf="imgURL">
+                                    <label class="ml-3">File Upload </label>
+                                    <input class="ml-3" type="file" accept="image/*" (change)="onSelectFile($event)">
+                                    <img [src]="imgURL" height="100" *ngIf="imgURL">
                                 </div>
                                 <div class="row m-t-30">
                                     <div class="col-md-12">
                                       <div class="form-actions">
-                                        <span class="pull-right"><button class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now</button></span>
-                                        <span class="pull-left"><button class="btn btn-secondary" type="reset"
+                                        <span class="pull-right"><button class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20 pr-5">Sign up now</button></span>
+                                        <span class="pull-left"><button class="btn btn-secondary ml-3" type="reset"
                                             (click)="onReset()">Cancel</button></span>
                                       </div>
                                         
@@ -107,8 +133,8 @@
                                 <hr/>
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <p class="text-inverse text-left m-b-0">Thank you.</p>
-                                        <p class="text-inverse text-left"><a href="index.html"><b>Back to website</b></a></p>
+                                        <p class="text-inverse text-left m-b-0 ml-3">Thank you.</p>
+                                        <p class="text-inverse text-left ml-3"><a href="index.html"><b>Back to website</b></a></p>
                                     </div>
                                     <div class="col-md-2">
                                         <img src="assets/images/auth/Logo-small-bottom.png" alt="small-logo.png">

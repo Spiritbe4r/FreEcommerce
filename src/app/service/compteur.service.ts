@@ -9,7 +9,7 @@ from '@angular/forms';
   providedIn: 'root'
 })
 export class CompteurService {
-  private baseUrl = '/api/compteurs';
+  private baseUrl = 'http://localhost:8080/api/compteurs';
   choixmenu : string  = 'A';
   list : any[];
   tokenStr = localStorage.getItem('token');

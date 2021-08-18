@@ -3,46 +3,43 @@
 </mat-toolbar>
 <div style="overflow-y: scroll; height:400px;" class="col-md-12 col-md-offset-2">
     <div class="col-md-12 col-md-offset-2">
-     <h1>Fournisseur </h1>
+     <h1>Proveedores </h1>
      <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
       <input type="hidden"  formControlName="id" id="id">
-      <div class="form-group">
-        <label>Code</label>
-        <input type="text" class="form-control" formControlName="code" id="code" readonly>
-        
-      </div>
+     
       <div class = "row">
+        <div class="form-group col-md-6">
+          <label>Nombre Compañia</label>
+          <input type="text" class="form-control" formControlName="company_name" id="company_name">
+         
+        </div>
       <div class="form-group col-md-6">
        
-         <label>Libelle</label>
-         <input type="text" class="form-control" formControlName="libelle" id="libelle">
+         <label>Responsable</label>
+         <input type="text" class="form-control" formControlName="responsable" id="responsable">
          
        </div>
        <div class="form-group col-md-6">
-           <label>adresse</label>
-           <input type="text" class="form-control" formControlName="adresse" id="adresse">
+           <label>Dirección</label>
+           <input type="text" class="form-control" formControlName="address" id="address">
           
          </div>
          <div class="form-group col-md-6">
-           <label>Telephone</label>
+           <label>Telefono</label>
            <input type="text" class="form-control" formControlName="tel" id="tel">
            
          </div>
          <div class="form-group col-md-6">
-           <label for="email">email</label>
-           <input type="text" class="form-control" formControlName="email" id="email">
+           <label for="email">Email</label>
+           <input type="email" class="form-control" formControlName="email" id="email">
            
          </div>
          <div class="form-group col-md-6">
-           <label>fax</label>
-           <input type="text" class="form-control" formControlName="fax" id="fax">
+           <label>RUC</label>
+           <input type="text" class="form-control" formControlName="ruc" id="ruc">
            
          </div> 
-            <div class="form-group col-md-6">
-           <label>mot de passe</label>
-           <input type="password" class="form-control" formControlName="pwd" id="pwd">
-          
-         </div>
+           
       </div>
          <div class="form-group">
              <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>

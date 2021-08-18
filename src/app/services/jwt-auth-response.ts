@@ -1,11 +1,36 @@
+import { stringify } from "querystring";
+
+
 export class JwtAuthResponse{
-    username: String;
+
     token:string;
+    user:MyUser;
+    
     
 
-    constructor(username:string,token:string){
-        this.username=username;
+    constructor(token:string,user:MyUser){
+   
         this.token=token;
+        this.user=user;
+     
 
     }
+}
+
+export class MyUser{
+    username:string;
+    email:string;
+    name:string;
+    roles:string;
+    img:string;
+
+    constructor(username:string,email:string,name:string,roles:string,img:string){
+        this.username=username;
+        this.email=email;
+        this.name=name;
+        this.roles=roles;
+        this.img=img;
+
+    }
+
 }

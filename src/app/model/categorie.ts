@@ -1,5 +1,6 @@
 export class Categorie {
     id: number;
     code: string;
-    libelle: string;
+    name: string;
+    description: string;
 }

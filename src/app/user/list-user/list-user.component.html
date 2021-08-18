@@ -10,11 +10,11 @@
    table-responsive-lg">
     <thead>
     <tr>
-    
+      <th scope="col">Id </th>
     <th scope="col">Name </th>
     <th scope="col">UserName</th>
     <th scope="col">Email</th>
-    <th scope="col">code </th>
+    <th scope="col">Roles </th>
     <th scope="col">Image</th>
      <th>
         <a class="btn btn-outline-success" (click)="addUser()">
@@ -27,17 +27,18 @@
 
     <tr *ngFor="let item of crudApi.list | paginate: { itemsPerPage: 3, currentPage: p }">
     
-    <td>{{item.nom}}</td>
+    <td>{{item.id}}</td>
+    <td>{{item.name}}</td>
     <td>{{item.username}}</td>
     <td>{{item.email}}</td>
-    <td>{{item.code}}</td>
+    <td>{{item.roles}}</td>
     <td><a href="#"><img class="card-img-top img-responsive"
-      src = "{{this.crudApi.host+'/api/Imgusers/'+item.id}}" 
+      src = "{{item.img}}" 
       style = "height :100px;width:200px"
      alt=""></a></td>
     <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectData(item)">
       <i class="fa fa-pencil-square-o" ></i></button></td>
-   <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.code)">
+   <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
       <i class="fa fa-trash-o"></i></button></td>
        </tr>
          </tbody>

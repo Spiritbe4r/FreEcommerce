@@ -23,27 +23,27 @@ export class PayementComponent implements OnInit {
     public dialogRef: MatDialogRef<PayementComponent>) { }
     public payPalConfig?: IPayPalConfig;
     compteur: any = {};
-    annee;
-    numero;
+    year;
+    number;
     Date;
     showSuccess = false;
     get f() { return this.service.formData.controls; }
   ngOnInit() {
     this.infoForm();
     this.Date = this.transformDate(new Date(Date.now()));
-      this.annee = (this.Date).toString().substring(0, 4);
-      this.f['annee'].setValue(this.annee);
-      this.onSelectCompteur(this.annee);
+      this.year = (this.Date).toString().substring(0, 4);
+      this.f['year'].setValue(this.year);
+      this.onSelectCompteur(this.year);
     
    }
   infoForm() {
     this.service.formData = this.fb.group({
         id: null,
-        numero: ['', [Validators.required]],
-        annee: ['', [Validators.required]],
-        date_mvt: ['', [Validators.required]],
+        //number: ['', [Validators.required]],
+        year: ['', [Validators.required]],
+        created_date: ['', [Validators.required]],
         nom: ['', [Validators.required, Validators.minLength(8)]], 
-        adresse: ['', [Validators.required, Validators.minLength(8)]],
+        address: ['', [Validators.required, Validators.minLength(8)]],
         sadresse: ['', [Validators.required, Validators.minLength(8)]],
         ville: ['', [Validators.required, Validators.minLength(8)]],
         codep: ['', [Validators.required, Validators.minLength(8)]],
@@ -54,19 +54,20 @@ export class PayementComponent implements OnInit {
         totttc: [''],
         modreg : [''],
         numcarte : [''],
-        lpaniers :[],
+        lbasket :[],
            });
     }
    valider() 
    {
     alert('fff');
-    this.f['annee'].setValue(this.annee);
-    this.f['date_mvt'].setValue(this.transformDate(new Date()));
-    this.f['numero'].setValue(this.numero);
+    this.f['year'].setValue(this.year);
+    this.f['created_date'].setValue(this.transformDate(new Date()));
+    //this.f['number'].setValue(this.number);
     this.f['totht'].setValue(this.service.tottht);
     this.f['tottva'].setValue(this.service.tottva);
     this.f['totttc'].setValue(this.service.totttc);
-    this.f['lpaniers'].setValue(this.service.list);
+    
+    this.f['lbasket'].setValue(this.service.list);
     this.service.saveOrUpdate(this.service.formData.value).
          subscribe( data => {
            this.toastr.success( 'Validation Faite avec Success'); 
@@ -83,7 +84,7 @@ export class PayementComponent implements OnInit {
     this.compteurservice.getData(id).subscribe(
       response => {
         this.compteur = response;
-        this.numero = (this.annee *1000000) + this.compteur.numpanier;
+        this.year = (this.year *1000000) + this.compteur.numpanier;
       }
     );
 }

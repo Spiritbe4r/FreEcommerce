@@ -9,7 +9,7 @@ from '@angular/forms';
   providedIn: 'root'
 })
 export class FournisseurService {
-  private baseUrl = '/api/fournisseurs';
+  private baseUrl = 'http://localhost:8000/suppliers/';
   choixmenu : string  = 'A';
   list : Fournisseur[];
   public dataForm:  FormGroup; 
@@ -17,7 +17,7 @@ export class FournisseurService {
  
  
   getData(id: number): Observable<Object> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+    return this.http.get(`${this.baseUrl}${id}/`);
   }
  
   createData(info: Object): Observable<Object> {
@@ -25,12 +25,12 @@ export class FournisseurService {
   }
   
   updatedata(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+    return this.http.put(`${this.baseUrl}${id}/`, value);
   }
  
   deleteData(id: number): Observable<any> {
    
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}${id}/`, { responseType: 'text' });
   }
 
   getAll(): Observable<any> {

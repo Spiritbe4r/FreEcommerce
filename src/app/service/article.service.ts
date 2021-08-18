@@ -12,9 +12,12 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   providedIn: 'root'
 })
 export class ArticleService {
-  private baseUrl = '/api/articles';
+  
+ private baseUrl = 'http://localhost:8000/products';
+  private djUrl = 'http://localhost:8000/product/products/create/';
+  private djlistUrl='http://localhost:8000/products/';
   parametre: any = {};
-  host: string = 'http://localhost:8080';
+  host: string = 'http://localhost:8000/product/image/1/';
   choixmenu: string = 'A';
   list: any = [];
   public dataForm: FormGroup;
@@ -32,20 +35,22 @@ export class ArticleService {
   }
   createData(formData: FormData): Observable<any> {
 
-    return this.http.post(`${this.baseUrl}`, formData);
+    return this.http.post(`${this.djUrl}`, formData);
   }
 
-  updatedata(id: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${id}`, value);
+  updatedata(id: number, info: Object): Observable<Object> {
+    return this.http.patch(`${this.baseUrl}/${id}/`, info);
   }
+
+  
 
   deleteData(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.djlistUrl}${id}/`, { responseType: 'text' });
   }
 
   getAll(): Observable<any> {
 
-    return this.http.get(`${this.baseUrl}`);
+    return this.http.get(`${this.djlistUrl}`);
   }
 
 

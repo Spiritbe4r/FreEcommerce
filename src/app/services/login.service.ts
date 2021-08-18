@@ -5,12 +5,14 @@ import {LocalStorageService} from 'ngx-webstorage';
 import { Observable } from 'rxjs';
 import { JwtAuthResponse } from './jwt-auth-response';
 import {map} from 'rxjs/operators';
+import { LoginPayload } from '../componentes/mylogin/LoginPayload';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
   url="http://localhost:8080"
+  djurl="http://localhost:8000/gateway/login/"
 
 
   constructor(private httpClient:HttpClient,private localStorageService:LocalStorageService) { }
@@ -23,9 +25,12 @@ export class LoginService {
   }
 
   generateToken(credentials:any): Observable<boolean> {
-    return this.httpClient.post<JwtAuthResponse>(this.url + '/token', credentials).pipe(map(data => {
+    //return this.httpClient.post<JwtAuthResponse>(this.url + '/token', credentials).pipe(map(data => {
+    return this.httpClient.post<JwtAuthResponse>(this.djurl, credentials).pipe(map(data => {
       this.localStorageService.store('token', data.token);
-      this.localStorageService.store('username', data.username);
+      this.localStorageService.store('username', data.user.username);
+      this.localStorageService.store('roles', data.user.roles);
+      this.localStorageService.store('img', data.user.img);
       return true;
     }));
   }
@@ -61,5 +66,13 @@ export class LoginService {
     let token=localStorage.getItem('token')
     return token;
 
+  }
+
+  loginUsers(loginPayload: LoginPayload): Observable<boolean> {
+    return this.httpClient.post<JwtAuthResponse>(this.url + 'login', loginPayload).pipe(map(data => {
+      this.localStorageService.store('authenticationToken', data.token);
+  
+      return true;
+    }));
   }
 }

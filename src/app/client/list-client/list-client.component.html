@@ -12,9 +12,10 @@
      table-responsive-lg">
       <thead>
       <tr>
-      <th>Code</th>
-      <th scope="col">libelle</th>
-      <th scope="col">adresse</th>
+      <th>Codigo</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Email</th>
+      <th scope="col">Dirección</th>
       <th scope="col">Tel</th>
       
       <th class="text-center" scope="col">Action</th>
@@ -25,14 +26,15 @@
       </thead>
       <tbody>
       <tr *ngFor="let item of crudApi.list | paginate: { itemsPerPage: 4, currentPage: p } ">
-      <th>{{item.code}}</th>
-      <td>{{item.libelle}}</td>
-      <td>{{item.adresse}}</td>
+      <th>{{item.id}}</th>
+      <td>{{item.full_name}}</td>
+      <td>{{item.email}}</td>
+      <td>{{item.address}}</td>
       <td>{{item.tel}}</td>
       
       <td><button class="btn btn-warning" style="margin-left: 20px;" (click) = "selectData(item)">
         <i class="fa fa-pencil-square-o" ></i></button></td>
-     <td><button class="btn btn-danger" (click) = "removeData(item.code)">
+     <td><button class="btn btn-danger" (click) = "removeData(item.id)">
         <i class="fa fa-trash-o"></i></button></td>
          </tr>
            </tbody>

@@ -1,0 +1,58 @@
+<mat-toolbar color="primary">
+  <h1>Gestion Article</h1>
+</mat-toolbar>
+<div style="overflow-y: scroll; height:500px;" class="col-md-12 col-md-offset-2">
+  
+  <form [formGroup]="this.crudApi.formData" (ngSubmit)="onSubmit()" >
+      <div class = "row">
+        <div class="form-group col-md-12">
+          <label>Username </label>
+          <input type="text" class="form-control" formControlName="username" id="username">
+      </div>
+      <div class="form-group col-md-12">
+        <label>Email </label>
+        <input type="email" class="form-control" formControlName="email" id="email">
+    </div>
+    <div class="form-group col-md-12">
+        <label>Nombre </label>
+        <input type="text" class="form-control" formControlName="name" id="name">
+    </div>
+      
+     
+
+          <div class="form-group col-md-6">
+            <label>Role </label>
+            <select formControlName="roles" class="form-control">
+                <option value="0">Select Role</option>
+                <option value="ADMIN">Admin</option>
+                <option value="USER">User</option>
+
+              </select>  
+       
+        </div>
+        
+
+          <!-- <div class="form-group col-md-6">
+          <label>Code Catégorie </label>
+          <select class="form-control" formControlName="ccateg" id="ccateg"
+              (change)="onSelectCateg($event.target.value)">
+              <option value="0">-Select-</option>
+              <option *ngFor="let item of CategorieList" value="{{item.code}}">{{item.libelle}}</option>
+          </select>
+      </div>-->
+     
+     
+      <div class="form-group col-md-6">
+          <label>Subir Imagen </label>
+          <input type="file" accept="image/*" (change)="onSelectFile($event)">
+          <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
+      <div class="form-group">
+          <button type="submit" class="btn btn-dark m-2"><i class="fa fa-database"></i> Submit</button>
+          <a class="btn btn-outline-success mr-2" routerLink="/users"><i class="fa fa-plus-square"></i> Listado</a>
+          <button type="button" class="btn btn-outline-dark ml-2" [mat-dialog-close]><span>X</span></button>
+
+      </div>
+      </div>
+  </form>
+</div>
